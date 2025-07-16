@@ -4,9 +4,13 @@ import styled from 'styled-components';
 import Cart from './Cart';
 import Home from './Home';
 import {BrowserRouter as Router, Routes, Route, Link} from "react-router-dom";
-import {db} from './firebase'
+import {db,auth} from './firebase'
 import { collection, onSnapshot } from "firebase/firestore";
+import Login from './Login';
+import {signOut } from 'firebase/auth';
+
 function App() {
+  const[user,setUser]=useState(JSON.parse(localStorage.getItem('user')));
   const[cartItems,setCartItems]=useState([]);
 
   const getCartItems=()=>{
@@ -29,17 +33,33 @@ function App() {
   useEffect(()=>{
     getCartItems();
   },[])
+
+  const signOut=async()=>{
+    try{
+        await auth.signOut();
+        localStorage.removeItem('user')
+        setUser(null);
+    }catch(error){
+      alert(error);
+    }
+  }
+
   return (
     <Router>
-    <div>
-      <Header cartItems={cartItems}/>
+      {
+        !user?(
+          <Login setUser={setUser}/>
+        ):(
+          <div>
+          <Header cartItems={cartItems} user={user} signOut={signOut}/>
 
-       <Routes>
+          <Routes>
           <Route path="/cart" element={<Cart cartItems={cartItems}/>} />
           <Route path="/" element={<Home />} />
-        </Routes>
-      
-    </div>
+          </Routes>
+          </div>
+        )
+      }
     </Router>
   )
 }

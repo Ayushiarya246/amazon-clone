@@ -11,7 +11,7 @@ import{
   Link
 } from "react-router-dom";
 
-function Header({cartItems}) {
+function Header({cartItems,user,signOut}) {
 
 const getCount=()=>{
   let count=0;
@@ -53,8 +53,8 @@ const getCount=()=>{
           </LangOption>
         </LanguageWrapper>
         
-        <NavbarAddressLines>
-          <Line1>Hello,sign in</Line1>
+        <NavbarAddressLines onClick={signOut}>
+          <Line1>Hello,{user.name}</Line1>
           <Line2>Account & Lists</Line2>
         </NavbarAddressLines>
 
@@ -109,6 +109,7 @@ const NavbarAddressLines=styled.div`
     flex-direction:column;
     margin-left:5px;
     margin-right:15px;
+    cursor:pointer;
 `;
 const Line1=styled.div`
     font-size:12px;
