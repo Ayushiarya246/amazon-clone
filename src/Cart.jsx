@@ -29,9 +29,16 @@ function Cart({cartItems}) {
   )
 }
 
-const Container=styled.div`
-  display:flex;
-  padding: 14px 18px 0 18px; 
-  align-items:flex-start;
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding: 14px 18px 0 18px;
+  align-items: flex-start;
+
+  @media (min-width: 1025px) {
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+  }
 `;
 export default Cart

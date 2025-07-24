@@ -1,35 +1,29 @@
 import React from 'react'
 import styled from 'styled-components';
 import {db} from './firebase'
-import { doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
+import { collection, addDoc} from "firebase/firestore";
 
-function Product({title,price,rating,image,id}) {
+
+function Product({title,price,rating,image,id,user}) {
     const addToCart=async()=>{
-        if (!id) {
+        if (!id || !user.uid) {
         console.error("❌ No product ID provided");
         return;
     }
-        const cartItemRef = doc(db, "cartItems", id);
+       try {
+        await addDoc(collection(db, 'cartItems'), {
+        name: title,
+        image: image,
+        price: price,
+        quantity: 1,
+        userId: user.uid // ✅ associate with user
+    });
+    console.log("🛒 Added to cart for user:", user.uid);
+  } catch (error) {
+    console.error("❌ Failed to add to cart:", error);
+  }
+};
 
-        try {
-            const docSnap = await getDoc(cartItemRef);
-
-            if (docSnap.exists()) {
-                await updateDoc(cartItemRef, {
-                    quantity: docSnap.data().quantity + 1
-                });
-            } else {
-                await setDoc(cartItemRef, {
-                    name: title,
-                    image: image,
-                    price: price,
-                    quantity: 1
-                });
-            }
-        } catch (err) {
-            console.error("🔥 Firestore error:", err);
-        }
-    };
   return (
     <Container>
         <Title>
@@ -101,4 +95,4 @@ const AddToCartButton=styled.button`
     border-radius:2px;
     cursor:pointer;
 `;
-export default Product
+export default Product;

@@ -21,13 +21,20 @@ function CartItems({cartItems}) {
   )
 }
 
-const Container=styled.div`
-  flex:0.8;
-  margin-right:80px;
-  background-color:white;
-  box-shadow:10px 5px #888888;
-  padding:20px;
+const Container = styled.div`
+  width: 100%; 
+  margin-bottom: 20px;
+  background-color: white;
+  box-shadow: 10px 5px #888888;
+  padding: 20px;
+
+  @media (min-width: 1025px) {
+    width: 70%;
+    margin-right: 20px;
+    margin-bottom: 0;
+  }
 `;
+
 const ItemsContainer=styled.div`
   height:80%;
 `;

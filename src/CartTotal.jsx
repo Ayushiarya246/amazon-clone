@@ -16,11 +16,16 @@ function CartTotal({getCount,getTotalPrice}) {
   )
 }
 
-const Container=styled.div`
-  flex:0.3;
-  height:200px;
-  box-shadow:5px 5px #888888;
-  padding:20px;
+const Container = styled.div`
+  width: 100%; 
+  box-shadow: 5px 5px #888888;
+  padding: 20px;
+  margin-bottom: 20px;
+
+  @media (min-width: 1025px) {
+    width: 30%;
+    margin-bottom: 0;
+  }
 `;
 const Total=styled.h2`
   margin-bottom:16px;

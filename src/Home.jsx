@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import Product from './Product';
 import {db} from './firebase'
 import { collection, onSnapshot } from "firebase/firestore";
-function Home() {
+function Home({user}) {
   const[products,setProducts]=useState([]);
   const getProducts=()=>{
    try {
@@ -37,6 +37,7 @@ function Home() {
                         rating={data.product.rating}
                         image={data.product.image}
                         id={data.id}
+                        user={user}
                     />
                 ))
             }

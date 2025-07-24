@@ -17,7 +17,8 @@ function Login({setUser}) {
         let newUser={
             name:user.displayName,
             email:user.email,
-            photo:user.photoURL
+            photo:user.photoURL,
+            uid:user.uid
         }
         localStorage.setItem('user',JSON.stringify(newUser)) //only stores strings
         setUser(newUser)
