@@ -33,8 +33,8 @@ const Container = styled.div`
     margin-right: 20px;
     margin-bottom: 0;
   }
+  
 `;
-
 const ItemsContainer=styled.div`
   height:80%;
 `;

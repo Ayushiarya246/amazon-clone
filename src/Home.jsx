@@ -47,7 +47,7 @@ function Home({user}) {
   )
 }
 const Container=styled.div`
-    max-width:1500px;
+    max-width:1600px;
 `;
 const Banner=styled.div`
     background-image:url('https://i.imgur.com/SYHeuYM.jpg');

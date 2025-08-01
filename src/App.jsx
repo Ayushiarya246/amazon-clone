@@ -8,6 +8,10 @@ import {db,auth} from './firebase'
 import { collection, onSnapshot, query, where } from "firebase/firestore";
 import Login from './Login';
 import {signOut } from 'firebase/auth';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import './index.css'
+
 
 function App() {
   const [user, setUser] = useState(() => {
@@ -68,6 +72,15 @@ function App() {
           <Route path="/cart" element={<Cart cartItems={cartItems}/>} />
           <Route path="/" element={<Home user={user}/>} />
           </Routes>
+          <ToastContainer
+            position="top-right"
+            autoClose={2000}
+            hideProgressBar={false}
+            newestOnTop
+            closeOnClick
+            pauseOnHover
+            draggable
+          />
           </div>
         )
       }

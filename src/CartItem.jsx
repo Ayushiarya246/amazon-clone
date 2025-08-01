@@ -72,23 +72,47 @@ const Container=styled.div`
     padding-top:12px;
     padding-bottom:12px;
     display:flex;
+    @media (max-width: 767px) {
+    flex-direction: column;
+    align-items: flex-start;
+    border-bottom: 1px solid #ddd;
+    padding: 16px 0;
+  }
 `;
 
-const ImageContainer=styled.div`
-    height:180px;
-    width:180px;
-    flex-shrink:0;
-    flex-grow:0;
-    margin-right:16px;
-    img{
-        object-fit:contain;
-        height:100%;
-        width:100%;
+const ImageContainer = styled.div`
+  height: 180px;
+  width: 180px;
+  flex-shrink: 0;
+  margin-right: 16px;
+
+  img {
+    object-fit: contain;
+    height: 100%;
+    width: 100%;
+  }
+
+  @media (max-width: 767px) {
+    width: 140px;         /* ✅ Set a fixed smaller width */
+    height: 140px;        /* ✅ Maintain aspect ratio */
+    margin-right: 0;
+    margin-bottom: 10px;
+    align-self: center;
+
+    img {
+      width: 100%;
+      height: 100%;
     }
+  }
 `;
 
-const CartItemInfo=styled.div`
-flex-grow:1;
+const CartItemInfo = styled.div`
+  flex-grow: 1;
+  width: 100%;
+
+  @media (max-width: 767px) {
+    margin-top: 10px;
+  }
 `;
 
 const InfoTop=styled.div`
@@ -97,9 +121,15 @@ const InfoTop=styled.div`
         font-size:18px;
     }
 `;
-const InfoBottom=styled.div`
-    display:flex;
-    margin-top:4px;
+
+const InfoBottom = styled.div`
+  display: flex;
+  margin-top: 4px;
+
+  @media (max-width: 767px) {
+    flex-direction: column;
+    gap: 10px;
+  }
 `;
 const Quantity=styled.div`
     select{
@@ -112,14 +142,24 @@ const Quantity=styled.div`
         }
     }
 `;
-const Delete=styled.div`
-    color:#007185;
-    margin-left:16px;
-    cursor:pointer;
+const Delete = styled.div`
+  color: #007185;
+  margin-left: 16px;
+  cursor: pointer;
+
+  @media (max-width: 767px) {
+    margin-left: 0;
+  }
 `;
-const Price=styled.div`
-    font-size:18px;
-    font-weight:700;
-    margin-left:16px;
+
+const Price = styled.div`
+  font-size: 18px;
+  font-weight: 700;
+  margin-left: 16px;
+
+  @media (max-width: 767px) {
+    margin-left: 0;
+    margin-top: 8px;
+  }
 `;
 export default CartItem

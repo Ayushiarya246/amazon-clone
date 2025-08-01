@@ -1,16 +1,29 @@
 import React from 'react'
 import styled from 'styled-components';
 import {db} from './firebase'
-import { collection, addDoc} from "firebase/firestore";
-
+import { collection, addDoc, query, where, getDocs } from "firebase/firestore";
+import { toast } from 'react-toastify';
 
 function Product({title,price,rating,image,id,user}) {
     const addToCart=async()=>{
         if (!id || !user.uid) {
-        console.error("❌ No product ID provided");
+        toast.error("Product ID or User missing");
         return;
     }
        try {
+
+        const q = query(
+            collection(db, "cartItems"),
+            where("userId", "==", user.uid),
+            where("name", "==", title) // You can also use product ID if available
+        );
+        const querySnapshot = await getDocs(q);
+
+        if (!querySnapshot.empty) {
+        toast.info("⚠️ Product is already in the cart");
+        return; // ✅ Don't add again
+        }
+        
         await addDoc(collection(db, 'cartItems'), {
         name: title,
         image: image,
@@ -18,8 +31,9 @@ function Product({title,price,rating,image,id,user}) {
         quantity: 1,
         userId: user.uid // ✅ associate with user
     });
-    console.log("🛒 Added to cart for user:", user.uid);
+    toast.success("🛒 Product added to cart!");
   } catch (error) {
+    toast.error("❌ Failed to add to cart");
     console.error("❌ Failed to add to cart:", error);
   }
 };
